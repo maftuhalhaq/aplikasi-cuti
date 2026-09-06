@@ -110,13 +110,13 @@ class LeaveController extends Controller
     {
         $user = auth()->user();
 
-        // Cek apakah user sudah punya PIN
-        if (!$user->pin) {
-            return back()->with('error', 'Akses Ditolak! Anda belum mengatur PIN. Silakan atur PIN di menu Profil.');
+        // Cek apakah user sudah punya PIN Hapus
+        if (!$user->pin_hapus) {
+            return back()->with('error', 'Akses Ditolak! Anda belum mengatur PIN Hapus Pegawai. Silakan atur di menu Profil.');
         }
 
-        // Validasi kebenaran PIN
-        if (!\Illuminate\Support\Facades\Hash::check($request->pin, $user->pin)) {
+        // Validasi kebenaran PIN Hapus
+        if (!\Illuminate\Support\Facades\Hash::check($request->pin, $user->pin_hapus)) {
             return back()->with('error', 'Otorisasi Gagal! PIN yang Anda masukkan salah.');
         }
 
@@ -135,10 +135,10 @@ class LeaveController extends Controller
         ]);
 
         $user = auth()->user();
-        if (!$user->pin) {
-            return back()->with('error', 'Akses Ditolak! Anda belum mengatur PIN di menu Profil.');
+        if (!$user->pin_cuti) {
+            return back()->with('error', 'Akses Ditolak! Anda belum mengatur PIN Atur Hak Cuti di menu Profil.');
         }
-        if (!\Illuminate\Support\Facades\Hash::check($request->pin, $user->pin)) {
+        if (!\Illuminate\Support\Facades\Hash::check($request->pin, $user->pin_cuti)) {
             return back()->with('error', 'Otorisasi Gagal! PIN Konfirmasi salah.');
         }
 

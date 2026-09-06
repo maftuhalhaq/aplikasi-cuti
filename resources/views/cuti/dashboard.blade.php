@@ -548,12 +548,12 @@
                                 <label class="block text-[11px] text-slate-500 mb-1.5 font-medium">Opsi Cuti Tahunan</label>
                                 <div class="flex flex-wrap gap-2">
                                     <label class="cursor-pointer">
-                                        <input type="radio" name="kategori_tahunan" value="Istirahat" class="peer sr-only">
-                                        <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 peer-checked:border-blue-500 transition-colors shadow-sm">Istirahat</div>
-                                    </label>
-                                    <label class="cursor-pointer">
                                         <input type="radio" name="kategori_tahunan" value="Keperluan Keluarga" class="peer sr-only">
                                         <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 peer-checked:border-blue-500 transition-colors shadow-sm">Keperluan Keluarga</div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="kategori_tahunan" value="Istirahat" class="peer sr-only">
+                                        <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 peer-checked:border-blue-500 transition-colors shadow-sm">Istirahat</div>
                                     </label>
                                     <label class="cursor-pointer">
                                         <input type="radio" name="kategori_tahunan" value="" class="peer sr-only" checked>

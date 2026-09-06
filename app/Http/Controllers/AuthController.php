@@ -14,10 +14,11 @@ class AuthController extends Controller
     }
 
     // Proses autentikasi login
+    // Proses autentikasi login
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'username' => ['required'], // Ubah email jadi username
             'password' => ['required'],
         ]);
 
@@ -27,8 +28,8 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Email atau Password yang Anda masukkan salah.',
-        ])->onlyInput('email');
+            'username' => 'Username atau Password yang Anda masukkan salah.',
+        ])->onlyInput('username');
     }
 
     // Proses logout
@@ -48,29 +49,61 @@ class AuthController extends Controller
     }
 
     // Memproses update Email, Password, atau PIN
+    // Memproses update Profil, Password, atau PIN
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
 
-        // 1. Update Email
-        if ($request->has('email') && $request->email != $user->email) {
-            $request->validate(['email' => 'required|email|unique:users,email,' . $user->id]);
-            $user->update(['email' => $request->email]);
-            return back()->with('success', 'Email berhasil diperbarui!');
+        // 1. Update Profil Akun (Nama & Username)
+        if ($request->action == 'update_profile') {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'username' => 'required|string|unique:users,username,' . $user->id,
+            ]);
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username
+            ]);
+            return back()->with('success', 'Informasi akun berhasil diperbarui!');
         }
 
-        // 2. Update Password
-        if ($request->has('new_password')) {
-            $request->validate(['new_password' => 'required|min:6|confirmed']);
+        // 2. Update Kata Sandi
+        if ($request->action == 'update_password') {
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required|min:6|confirmed'
+            ]);
+            if (!\Illuminate\Support\Facades\Hash::check($request->old_password, $user->password)) {
+                return back()->with('error', 'Gagal! Kata sandi lama tidak sesuai.');
+            }
             $user->update(['password' => bcrypt($request->new_password)]);
             return back()->with('success', 'Kata sandi berhasil diperbarui!');
         }
 
-        // 3. Update PIN
-        if ($request->has('new_pin')) {
-            $request->validate(['new_pin' => 'required|digits:6|confirmed']);
-            $user->update(['pin' => bcrypt($request->new_pin)]);
-            return back()->with('success', 'PIN Konfirmasi 6-Digit berhasil diperbarui!');
+        // 3. Update PIN Atur Hak Cuti
+        if ($request->action == 'update_pin_cuti') {
+            $request->validate([
+                'password_verify' => 'required',
+                'pin_cuti' => 'required|digits:6|confirmed'
+            ]);
+            if (!\Illuminate\Support\Facades\Hash::check($request->password_verify, $user->password)) {
+                return back()->with('error', 'Gagal! Kata sandi tidak sesuai.');
+            }
+            $user->update(['pin_cuti' => bcrypt($request->pin_cuti)]);
+            return back()->with('success', 'PIN Atur Hak Cuti berhasil diperbarui!');
+        }
+
+        // 4. Update PIN Hapus Pegawai
+        if ($request->action == 'update_pin_hapus') {
+            $request->validate([
+                'password_verify' => 'required',
+                'pin_hapus' => 'required|digits:6|confirmed'
+            ]);
+            if (!\Illuminate\Support\Facades\Hash::check($request->password_verify, $user->password)) {
+                return back()->with('error', 'Gagal! Kata sandi tidak sesuai.');
+            }
+            $user->update(['pin_hapus' => bcrypt($request->pin_hapus)]);
+            return back()->with('success', 'PIN Hapus Pegawai berhasil diperbarui!');
         }
 
         return back();

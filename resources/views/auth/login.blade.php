@@ -44,11 +44,14 @@
             </div>
             
             <!-- Tipografi Branding Aplikasi -->
-            <h1 class="text-4xl font-bold text-white tracking-widest drop-shadow-md mb-3">SI-CUTE</h1>
-            <p class="text-blue-100 text-lg font-medium tracking-wide leading-relaxed">
-                Sistem Informasi CUTi Elektronik <br>
-                <span class="text-white font-bold">Badan Narkotika Nasional Kab. Malang</span>
-            </p>
+<h1 class="text-4xl font-bold text-white tracking-widest drop-shadow-md mb-3">SI-CUTE</h1>
+<p class="text-blue-100 text-lg font-medium tracking-wide leading-relaxed">
+    <span class="font-bold text-white">S</span>istem 
+    <span class="font-bold text-white">I</span>nformasi 
+    <span class="font-bold text-white">CUT</span>i 
+    <span class="font-bold text-white">E</span>lektronik <br>
+    <span class="text-white font-bold">Badan Narkotika Nasional Kab. Malang</span>
+</p>
         </div>
     </div>
 
@@ -61,7 +64,7 @@
                 <div class="inline-flex items-center justify-center bg-blue-50 p-3 rounded-2xl shadow-sm mb-4 lg:hidden">
                     <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 </div>
-                <h2 class="text-3xl font-bold text-slate-900">Selamat Datang! 👋</h2>
+                <h2 class="text-3xl font-bold text-slate-900">Selamat Datang! </h2>
                 <p class="text-slate-500 mt-2 text-sm">Silakan masuk untuk mengelola data cuti pegawai BNN Kabupaten Malang.</p>
             </div>
 
@@ -84,13 +87,13 @@
             <form action="{{ url('/login') }}" method="POST" class="space-y-5">
                 @csrf
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1.5">Alamat Email</label>
+                    <label class="block text-sm font-bold text-slate-700 mb-1.5">Username</label>
                     <div class="relative">
-                        <!-- Icon Email -->
+                        <!-- Icon User (Menggantikan Icon Email) -->
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </div>
-                        <input type="email" name="email" value="{{ old('email') }}" required class="w-full pl-11 pr-4 py-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-slate-50 focus:bg-white" placeholder="admin@bnn.go.id">
+                        <input type="text" name="username" value="{{ old('username') }}" required class="w-full pl-11 pr-4 py-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-slate-50 focus:bg-white" placeholder="Masukkan username...">
                     </div>
                 </div>
                 
