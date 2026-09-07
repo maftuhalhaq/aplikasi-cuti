@@ -2,24 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User; // Pastikan Model User dipanggil
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // 1. Membuat akun Admin otomatis
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin BNN',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('password'), // Password untuk login nantinya adalah: password
+        ]);
+
+        // 2. Memanggil seeder master data Anda agar tabel referensi ikut terisi
+        $this->call([
+            MasterDataSeeder::class,
         ]);
     }
 }

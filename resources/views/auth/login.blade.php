@@ -1,162 +1,113 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - SI-CUTE BNNK Malang</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
+<x-guest-layout>
+    <div class="min-h-screen grid grid-cols-1 lg:grid-cols-12 bg-white">
         
-        /* Animasi Ringan (Floating) untuk Ilustrasi agar terasa hidup */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
-        }
-        .animate-float {
-            animation: float 5s ease-in-out infinite;
-        }
+        <!-- SISI KIRI: Branding / Informasi (Hanya tampil di layar besar/lg) -->
+        <div class="hidden lg:flex lg:col-span-5 bg-slate-900 text-white p-12 flex-col justify-between relative overflow-hidden">
+            <!-- Efek dekoratif latar belakang -->
+            <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl"></div>
 
-        /* Latar Belakang Kiri (Gradasi Biru Modern selaras dengan BNN) */
-        .bg-gradient-modern {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-        }
-    </style>
-</head>
-<body class="bg-slate-50 min-h-screen flex text-slate-800">
-
-    <!-- SISI KIRI: ILUSTRASI & BRANDING -->
-    <div class="hidden lg:flex lg:w-1/2 bg-gradient-modern relative items-center justify-center p-12 overflow-hidden">
-        <!-- Ornamen Geometris Transparan di Background -->
-        <div class="absolute top-[-10%] left-[-10%] w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-300 opacity-20 rounded-full blur-3xl"></div>
-
-        <div class="relative z-10 w-full max-w-lg text-center flex flex-col items-center">
-            
-            <!-- GAMBAR ILUSTRASI KARTUN PEGAWAI BAWA BERKAS -->
-            <div class="relative mb-8 animate-float">
-                <div class="absolute -inset-1 bg-white/20 rounded-3xl blur-md"></div>
-                <img src="{{ asset('images/ilustrasi-login.png') }}" 
-                     alt="Ilustrasi Pegawai Membawa Berkas Cuti" 
-                     class="relative w-80 h-auto rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-4 border-white/30 object-cover">
-            </div>
-            
-            <!-- Tipografi Branding Aplikasi -->
-<h1 class="text-4xl font-bold text-white tracking-widest drop-shadow-md mb-3">SI-CUTE</h1>
-<p class="text-blue-100 text-lg font-medium tracking-wide leading-relaxed">
-    <span class="font-bold text-white">S</span>istem 
-    <span class="font-bold text-white">I</span>nformasi 
-    <span class="font-bold text-white">CUT</span>i 
-    <span class="font-bold text-white">E</span>lektronik <br>
-    <span class="text-white font-bold">Badan Narkotika Nasional Kab. Malang</span>
-</p>
-        </div>
-    </div>
-
-    <!-- SISI KANAN: FORM LOGIN -->
-    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white shadow-2xl z-10 lg:rounded-l-[3rem]">
-        <div class="max-w-md w-full">
-            
-            <!-- Logo & Judul Mobile -->
-            <div class="text-center mb-10 lg:text-left">
-                <div class="inline-flex items-center justify-center bg-blue-50 p-3 rounded-2xl shadow-sm mb-4 lg:hidden">
-                    <svg class="w-8 h-8 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                </div>
-                <h2 class="text-3xl font-bold text-slate-900">Selamat Datang! </h2>
-                <p class="text-slate-500 mt-2 text-sm">Silakan masuk untuk mengelola data cuti pegawai BNN Kabupaten Malang.</p>
+            <div class="relative z-10">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-white text-slate-900 flex items-center justify-center font-black text-xl shadow-md group-hover:scale-105 transition">
+                        B
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-base tracking-tight text-white">SI-TAT BNN</h1>
+                        <p class="text-xs text-slate-400 font-medium">Badan Narkotika Nasional</p>
+                    </div>
+                </a>
             </div>
 
-            <!-- Pesan Error / Success -->
-            @if(session('success'))
-                <div class="mb-6 bg-emerald-50 text-emerald-600 px-4 py-3 rounded-xl text-sm font-semibold flex items-center gap-3 border border-emerald-200">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            @if($errors->any())
-                <div class="mb-6 bg-red-50 text-red-600 px-4 py-3 rounded-xl text-sm font-semibold flex items-center gap-3 border border-red-200">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    {{ $errors->first() }}
-                </div>
-            @endif
-
-            <!-- Form -->
-            <form action="{{ url('/login') }}" method="POST" class="space-y-5">
-                @csrf
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1.5">Username</label>
-                    <div class="relative">
-                        <!-- Icon User (Menggantikan Icon Email) -->
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        </div>
-                        <input type="text" name="username" value="{{ old('username') }}" required class="w-full pl-11 pr-4 py-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-slate-50 focus:bg-white" placeholder="Masukkan username...">
-                    </div>
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1.5">Kata Sandi</label>
-                    <div class="relative">
-                        <!-- Icon Password -->
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        </div>
-                        
-                        <!-- Input Password (diberi ID dan padding kanan lebih besar) -->
-                        <input type="password" id="input_password" name="password" required class="w-full pl-11 pr-12 py-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all bg-slate-50 focus:bg-white" placeholder="••••••••">
-                        
-                        <!-- Tombol Show/Hide Password -->
-                        <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-blue-600 transition-colors focus:outline-none">
-                            <svg id="eye_icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <!-- Ikon Mata Default (Tertutup/Sandi tersembunyi) -->
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl shadow-md transition-all hover:shadow-lg mt-6 flex items-center justify-center gap-2">
-                    Masuk ke Sistem
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </button>
-            </form>
-            
-            <!-- Footer -->
-            <div class="mt-10 text-center">
-                <p class="text-xs text-slate-400 font-medium">
-                    &copy; {{ date('Y') }} BNN Kabupaten Malang.<br>Sistem Informasi CUTi Elektronik.
+            <div class="relative z-10 space-y-4 my-auto">
+                <span class="px-3 py-1 rounded-full bg-blue-500/10 text-[#3890f5] border border-blue-500/20 text-xs font-bold uppercase tracking-wider">
+                    Portal Petugas Resmi
+                </span>
+                <h2 class="text-3xl font-extrabold tracking-tight leading-snug">
+                    Masuk ke Sistem Asesmen Terpadu.
+                </h2>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    Kelola data klien, rekam jejak perkara hukum, asesmen medis, dan laporan rekapitulasi dengan aman dan terpusat.
                 </p>
             </div>
+
+            <div class="relative z-10 text-xs text-slate-500 font-medium">
+                &copy; 2026 BNN Kota Malang. All rights reserved.
+            </div>
         </div>
+
+        <!-- SISI KANAN: Form Login -->
+        <div class="col-span-1 lg:col-span-7 flex items-center justify-center p-8 sm:p-12 lg:p-16">
+            <div class="w-full max-w-md space-y-8">
+                
+                <!-- Logo versi Mobile -->
+                <div class="lg:hidden text-center space-y-2">
+                    <div class="inline-flex w-12 h-12 rounded-2xl bg-slate-900 text-white items-center justify-center font-black text-2xl shadow-md">
+                        B
+                    </div>
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">SI-TAT BNN</h2>
+                </div>
+
+                <div class="space-y-2 text-center lg:text-left">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Selamat Datang Kembali</h2>
+                    <p class="text-sm text-slate-500">Silakan masukkan kredensial akun Anda untuk mengakses sistem.</p>
+                </div>
+
+                <!-- Session Status -->
+                <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                <form method="POST" action="{{ route('login') }}" class="space-y-5">
+                    @csrf
+
+                    <!-- Email Address -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Email Petugas</label>
+                        <input type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" 
+                            class="block w-full rounded-xl border-slate-300 shadow-sm focus:border-[#3890f5] focus:ring-[#3890f5] text-sm py-3 px-4">
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Kata Sandi</label>
+                            @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}" class="text-xs font-semibold text-[#3890f5] hover:underline">
+                                    Lupa sandi?
+                                </a>
+                            @endif
+                        </div>
+                        <input type="password" name="password" required autocomplete="current-password" 
+                            class="block w-full rounded-xl border-slate-300 shadow-sm focus:border-[#3890f5] focus:ring-[#3890f5] text-sm py-3 px-4">
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center justify-between">
+                        <label for="remember_me" class="inline-flex items-center cursor-pointer">
+                            <input id="remember_me" type="checkbox" name="remember" class="rounded border-slate-300 text-[#3890f5] focus:ring-[#3890f5]">
+                            <span class="ms-2 text-xs font-medium text-slate-600">Ingat perangkat ini</span>
+                        </label>
+                    </div>
+
+                    <!-- Tombol Aksi -->
+                    <div class="pt-2">
+                        <button type="submit" style="background-color: #3890f5;" class="w-full py-3.5 px-4 rounded-xl text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-500/25 hover:opacity-95 transition flex items-center justify-center gap-2">
+                            Masuk ke Sistem &rarr;
+                        </button>
+                    </div>
+
+                    @if (Route::has('register'))
+                        <div class="text-center pt-4 border-t border-slate-100">
+                            <p class="text-xs text-slate-500">
+                                Belum memiliki akun petugas? 
+                                <a href="{{ route('register') }}" class="font-bold text-[#3890f5] hover:underline">Daftar sekarang</a>
+                            </p>
+                        </div>
+                    @endif
+                </form>
+            </div>
+        </div>
+
     </div>
-
-    <!-- SCRIPT UNTUK TOGGLE SHOW/HIDE PASSWORD -->
-    <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('input_password');
-            const eyeIcon = document.getElementById('eye_icon');
-
-            if (passwordInput.type === 'password') {
-                // Ubah menjadi teks terlihat
-                passwordInput.type = 'text';
-                // Ubah ke SVG Mata Tercoret (Sandi terlihat)
-                eyeIcon.innerHTML = `
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
-                `;
-            } else {
-                // Kembalikan menjadi titik-titik (password)
-                passwordInput.type = 'password';
-                // Kembalikan ke SVG Mata Terbuka (Sandi tersembunyi)
-                eyeIcon.innerHTML = `
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                `;
-            }
-        }
-    </script>
-</body>
-</html>
+</x-guest-layout>
